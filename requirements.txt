@@ -1,3 +1,4 @@
 streamlit
 st.pyplot()
-pip
+numpy
+pandas
