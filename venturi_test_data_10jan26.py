@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 #Import the local files
-suit_avg_path = "/Users/tim/Desktop/Venturi/Coding/Suit_Test_10126/Suits_avg_corrected.csv" #Change to where you have the csv file
+suit_avg_path = "Suits_avg_corrected.csv" #Change to where you have the csv file
 
 #Only use the relevant columns, here's also temp, density etc included for further analysis
 suitavg = pd.read_csv(suit_avg_path,usecols=(3,9,11,16,18,19,20,21,22)) 
