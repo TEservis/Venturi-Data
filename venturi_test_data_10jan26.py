@@ -1,4 +1,3 @@
-
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -89,27 +88,20 @@ data = makedata(suitavg)
 
 yaw_symbols = ['x','+','d','X']
 
-plt.figure(figsize=(12,9))
-for i in range(len(yaws)):
-    plt.plot(speeds_venturi[1:],data['Venturi_CdA_yaw%s'%(yaws[i])][1:],'-%s'%(yaw_symbols[i]),
-             markersize = 8,color=('black'),label=("Venturi Rho Suit @ %s° Yaw"%(yaws[i])))
-    
-    plt.plot(speeds_rest,data['GB_CdA_yaw%s'%(yaws[i])],'-.%s'%(yaw_symbols[i]),
-             markersize = 8,color=('cyan'),label=("GB @ %s° Yaw"%(yaws[i])))
-    
-    plt.plot(speeds_rest,data['Nopinz_CdA_yaw%s'%(yaws[i])],'--%s'%(yaw_symbols[i]),
-             markersize = 8,color=('orangered'),label=("Nopinz @ %s° Yaw"%(yaws[i])))
-    
-    plt.plot(speeds_rest,data['Rapha_CdA_yaw%s'%(yaws[i])],':%s'%(yaw_symbols[i]),
-             markersize = 8,color=('lime'),label=("Rapha @ %s° Yaw"%(yaws[i])))
+fig1,ax1 = plt.subplots(figsize=(9,7))
 
-plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05),
+for i in range(len(yaws)):
+    ax1.plot(speeds_venturi[1:],data['Venturi_CdA_yaw%s'%(yaws[i])][1:],'-%s'%(yaw_symbols[i]),markersize = 8,color=('black'),label=("Venturi Rho Suit @ %s° Yaw"%(yaws[i])))
+    ax1.plot(speeds_rest,data['GB_CdA_yaw%s'%(yaws[i])],'-.%s'%(yaw_symbols[i]),markersize = 8,color=('cyan'),label=("GB @ %s° Yaw"%(yaws[i])))
+    ax1.plot(speeds_rest,data['Nopinz_CdA_yaw%s'%(yaws[i])],'--%s'%(yaw_symbols[i]),markersize = 8,color=('orangered'),label=("Nopinz @ %s° Yaw"%(yaws[i])))
+    ax1.plot(speeds_rest,data['Rapha_CdA_yaw%s'%(yaws[i])],':%s'%(yaw_symbols[i]),markersize = 8,color=('lime'),label=("Rapha @ %s° Yaw"%(yaws[i])))
+
+ax1.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05),
           ncol=4, fancybox=True, shadow=True)
 
-plt.grid()
-plt.xlabel("Speed (km/h)")
-plt.ylabel("CdA")
-plt.show()
+ax1.grid()
+ax1.set_xlabel("Speed (km/h)")
+ax1.set_ylabel("CdA")
 
 #Plot another one
 
@@ -118,7 +110,7 @@ symbols = ['o','X','^']
 speed_color_rest = ['cyan','darkcyan','orangered']
 suit_colour = ['black','cyan','orangered','lime']
 
-plt.figure(figsize=(12,9))
+fig2,ax2 = plt.subplots(figsize=(9,7))
 for i in range(4):
     if i == 0:
         speeds = speeds_list_list[0][1:] # For Venturi
@@ -133,16 +125,50 @@ for i in range(4):
         if (i in[0,1,2,3] and n==3):
             continue
         else:
-            plt.plot(yaws,data['%s_CdA_%skmh'%(suits['suits'][i],speeds[n])],'-%s'%(symbols[n]),
-                     markersize = 9,color=(suit_colour[i]),label=("%s @ %s Kph"%(suits['suits'][i],speeds[n])))
+            ax2.plot(yaws,data['%s_CdA_%skmh'%(suits['suits'][i],speeds[n])],'-%s'%(symbols[n]),markersize = 9,color=(suit_colour[i]),
+                     label=("%s @ %s Kph"%(suits['suits'][i],speeds[n])))
 
 
-plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05),
+ax2.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05),
           ncol=4, fancybox=True, shadow=True)
 
-plt.grid()
-plt.xlabel("Yaw [°]")
-plt.ylabel("CdA")
-plt.show()
+ax2.grid()
+ax2.set_xlabel("Yaw [°]")
+ax2.set_ylabel("CdA")
 
-# %%
+
+
+
+#Plot with the four yaw angles in one plot
+plt.style.use('dark_background')
+
+suit_colour = ['cyan','yellow','orangered','lime']
+fig_yaw, ax_yaw = plt.subplots(nrows=2,ncols=2,figsize=(16,12))
+for rows in range(2):
+    for cols in range(2):
+        if rows==0 and cols==0:
+            y=0
+        if rows==0 and cols==1:
+            y=1
+        if rows==1 and cols==0:
+            y=2
+        if rows==1 and cols==1:
+            y=3
+        
+        
+        for i in range(4):
+                
+                if i ==0: #This one slices the 4 element big data array for the venturi suits compared to the 3 speeds for the rest
+                    ax_yaw[rows,cols].plot(speeds_rest,data['%s_CdA_yaw%s'%(suits["suits"][i],yaws[y])][1:],'-%s'%(yaw_symbols[i]),markersize = 8,
+                                color=(suit_colour[i]),label=("%s @ %s° Yaw"%(suits["suits"][i],yaws[y]))) 
+                    
+                else:    
+                    ax_yaw[rows,cols].plot(speeds_rest,data['%s_CdA_yaw%s'%(suits["suits"][i],yaws[y])],'-%s'%(yaw_symbols[i]),markersize = 8,
+                                color=(suit_colour[i]),label=("%s @ %s° Yaw"%(suits["suits"][i],yaws[y])))
+                    
+                    
+                ax_yaw[rows,cols].legend()
+                ax_yaw[rows,cols].set_xlabel('Velocity [km/h]')
+                ax_yaw[rows,cols].set_ylabel('CdA')
+                ax_yaw[rows,cols].grid('True',color=('gray'))
+                ax_yaw[rows,cols].set_title('%s° yaw'%(yaws[y]))
