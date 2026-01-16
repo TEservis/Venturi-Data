@@ -223,6 +223,7 @@ for y in range(len(yaws)):
     #axx[rows[y], cols[y]].legend(loc='upper left', ncols=3,labelcolor='black')
     axx[rows[y], cols[y]].set_ylim(-10,18)
     axx[rows[y], cols[y]].set_title('%s° Yaw'%(yaws[y]),color='black', fontsize=12)
-figg.legend(['30 kp/h','35 kp/h','45 kp/h'],ncols=3,labelcolor='black',bbox_to_anchor=(0., 1.02, 1., .102),loc=3)
+    if y==1:
+        axx[rows[y], cols[y]].legend(['30 kp/h','35 kp/h','45 kp/h'],ncols=1,labelcolor='black')
     
             
