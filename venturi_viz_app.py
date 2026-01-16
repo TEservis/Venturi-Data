@@ -25,7 +25,7 @@ col1.markdown('''The Venturi Rho Triathlon suit were developed specifically to p
 
 col1.markdown('''The other suits tested were a Team GB triathlon suit, Nopinz Flow Subzero, and the Rapha Men's Pro Team Summer Roadsuit.''')
 
-col2.image('Bepton.png')
+col2.image('tunnelpic.png')
 
 st.markdown('''The main difference between the three other suits that were tested is the price, where something like the Rapha suit goes for 
             at least the double of the Venturi Rho, which means >> £300 as well as the speed rating of which the suit performs best in.''')
