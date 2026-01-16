@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 #Import the local files
-suit_avg_path = "Suits_avg_corrected.csv" #Change to where you have the csv file
+suit_avg_path = "/Users/tim/Desktop/Venturi/Coding/Suit_Test_10126/Suits_avg_corrected.csv" #Change to where you have the csv file
 
 #Only use the relevant columns, here's also temp, density etc included for further analysis
 suitavg = pd.read_csv(suit_avg_path,usecols=(3,9,11,16,18,19,20,21,22)) 
@@ -172,3 +172,55 @@ for rows in range(2):
                 ax_yaw[rows,cols].set_ylabel('CdA')
                 ax_yaw[rows,cols].grid('True',color=('gray'))
                 ax_yaw[rows,cols].set_title('%s° yaw'%(yaws[y]))
+                
+                
+                
+### BAR CHART
+
+suits_list = np.array(['Venturi','GB','Nopinz','Rapha'])
+colors = np.array(['turquoise','yellow','tomato'])
+
+plt.style.use('fivethirtyeight')
+
+x = np.arange(len(suits_list[1:]))          # one base x position per suit
+nspeeds = 3
+width = 0.25
+offsets = np.linspace(-width, width, nspeeds)
+
+figg, axx = plt.subplots(nrows = 2, ncols = 2,layout="constrained",figsize = (12,8))
+
+rows = np.array([0,0,1,1]) # to index the plots
+cols = np.array([0,1,0,1]) # to index the plots
+
+for y in range(len(yaws)):
+    
+    for i in range(len(suits_list[1:])): #Excluding venturi suit
+        for s in range(len(speeds_rest)):
+        
+            
+            cda_other = data['%s_CdA_yaw%s' %(suits_list[i+1],yaws[y])][s]
+            
+            cda_venturi = data['Venturi_CdA_yaw%s' %(yaws[y])][1:][s]
+            
+            cda_diff = cda_other - cda_venturi
+            
+            watt_diff = round(0.5*1.225*cda_diff*(speeds_rest[s]/3.6)**3,2)
+            
+            if i==2:
+                rect = axx[rows[y],cols[y]].bar(x[i]+offsets[s],watt_diff,width=width,color=colors[s],label='%s kp/h'%(speeds_rest[s]),zorder=3)
+            else:
+                rect = axx[rows[y],cols[y]].bar(x[i]+offsets[s],watt_diff,width=width,color=colors[s],zorder=3)
+            
+            
+            axx[rows[y],cols[y]].bar_label(rect, padding=0,color='black')
+            
+            
+            
+            #print(watt_diff)
+    axx[rows[y],cols[y]].set_ylabel('Watts difference from RHO suit',color='black',fontsize=10)
+    axx[rows[y],cols[y]].grid(zorder=0)
+    axx[rows[y], cols[y]].tick_params(colors='black',which='both')
+    axx[rows[y], cols[y]].set_xticks(x) and axx[rows[y], cols[y]].set_xticklabels(suits_list[1:],color='black', rotation=0, fontsize=10)
+    #axx[rows[y], cols[y]].legend(loc='upper left', ncols=3,labelcolor='black')
+    axx[rows[y], cols[y]].set_ylim(-2,18)
+figg.legend(['30 kp/h','35 kp/h','45 kp/h'],ncols=3,labelcolor='black')
