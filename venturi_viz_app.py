@@ -3,6 +3,8 @@ import numpy as np
 import streamlit as st
 
 from venturi_test_data_10jan26 import fig_yaw
+from venturi_test_data_10jan26 import figg
+
 
 st.set_page_config(layout=("centered"))
 
@@ -46,3 +48,5 @@ st.markdown('''Every test run was calibrated beforehand across all yaw angles, a
             the airflow was allowed to stabilise for 5 seconds before recording started.
             Due to a client testing session taking 3hrs beforehand, the air was well circulated in the tunnel.
             ''')
+
+st.pyplot(figg)
