@@ -50,3 +50,23 @@ st.markdown('''Every test run was calibrated beforehand across all yaw angles, a
             ''')
 
 st.pyplot(figg)
+st.caption('''This chart displays the difference in watts for each of the speeds, assuming an air density of 1.225kg/m^3 and
+           is calculated for each velocity displayed. The watts displayed are calculated by W_suit - W_VenturiRHO at each speed.
+           ''')
+
+st.markdown('''
+            Based on the above the RHO is performing very well, proving faster than almost all suits at all yaw angles and speeds. 
+            ''')
+st.markdown('''
+            But the most important part is the performance at higher yaw angles. If you imagine a race, you will most likely face
+            cross wind and such which will cause an effective wind direction acting on you.
+            ''')
+st.markdown('''
+            At lower speeds, yaw angles are more prominent due to that the nominal velocity vector is smaller than at higher speeds. 
+            Therefore, at lower speeds, for a weaker cross wind, you will experience higher yaw angles as compared to someone 
+            riding at higher speeds.
+            ''')
+st.markdown('''
+            Given that the RHO is performing excellent at higher yaw angles, outperforming all the suits at all speeds, 
+            ##this is the suit for you##
+            ''')
