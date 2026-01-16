@@ -68,5 +68,5 @@ st.markdown('''
             ''')
 st.markdown('''
             Given that the RHO is performing excellent at higher yaw angles, outperforming all the suits at all speeds, 
-            ##this is the suit for you##
+            **this is the suit for you**
             ''')
