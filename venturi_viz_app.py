@@ -23,7 +23,7 @@ col1.markdown('''The Venturi Rho Triathlon suit were developed specifically to p
                 Great thermal regulation due to the colour and chosen fabrics as well as a great chamois for long events 
                 (from testing both in racing and long hours on the turbo).''')
 
-col1.markdown('''The other suits tested were a Team GB triathlon suit, Nopinz Flow Subzero, and the Rapha Men's Pro Team Summer Roadsuit.''')
+st.markdown('''The other suits tested were a Team GB triathlon suit, Nopinz Flow Subzero, and the Rapha Men's Pro Team Summer Roadsuit.''')
 
 col2.image('tunnelpic.png')
 
