@@ -215,12 +215,14 @@ for y in range(len(yaws)):
             axx[rows[y],cols[y]].bar_label(rect, padding=0,color='black')
             
             
-            
             #print(watt_diff)
     axx[rows[y],cols[y]].set_ylabel('Watts difference from RHO suit',color='black',fontsize=10)
     axx[rows[y],cols[y]].grid(zorder=0)
     axx[rows[y], cols[y]].tick_params(colors='black',which='both')
     axx[rows[y], cols[y]].set_xticks(x) and axx[rows[y], cols[y]].set_xticklabels(suits_list[1:],color='black', rotation=0, fontsize=10)
     #axx[rows[y], cols[y]].legend(loc='upper left', ncols=3,labelcolor='black')
-    axx[rows[y], cols[y]].set_ylim(-2,18)
-figg.legend(['30 kp/h','35 kp/h','45 kp/h'],ncols=3,labelcolor='black')
+    axx[rows[y], cols[y]].set_ylim(-10,18)
+    axx[rows[y], cols[y]].set_title('%s° Yaw'%(yaws[y]),color='black', fontsize=12)
+figg.legend(['30 kp/h','35 kp/h','45 kp/h'],ncols=3,labelcolor='black',bbox_to_anchor=(0., 1.02, 1., .102),loc=3)
+    
+            
