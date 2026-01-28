@@ -5,3 +5,7 @@ backgroundColor="#8dd9bf"
 secondaryBackgroundColor="#8dd9bf"
 textColor="#262730"
 font="sans serif"
+
+[theme.sidebar]
+backgroundColor="#a8ead3"
+
